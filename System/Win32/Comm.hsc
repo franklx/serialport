@@ -8,6 +8,7 @@ import Foreign.Storable
 import Foreign.Ptr
 import Foreign.Marshal.Alloc
 import Foreign.Marshal.Utils
+import Foreign.C.Types (CInt(..))
 import System.Hardware.Serialport.Types
 
 #include <windows.h>
@@ -98,7 +99,7 @@ getCommState h =
 --  __in     HANDLE hFile,
 --  __inout  LPDCB lpDCB
 --);
-foreign import stdcall unsafe "winbase.h GetCommState"
+foreign import ccall unsafe "winbase.h GetCommState"
   c_GetCommState :: HANDLE -> Ptr SerialPortSettings -> IO BOOL
 
 
@@ -111,7 +112,7 @@ setCommState h settings =
 --  __in  HANDLE hFile,
 --  __in  LPDCB lpDCB
 --);
-foreign import stdcall unsafe "winbase.h SetCommState"
+foreign import ccall unsafe "winbase.h SetCommState"
   c_SetCommState :: HANDLE -> Ptr SerialPortSettings -> IO BOOL
 
 
@@ -166,7 +167,7 @@ getCommTimeouts h =
 
 -- getcommtimeouts
 -- winbase.h -> BOOL WINAPI GetCommTimeouts(HANDLE, LPCOMMTIMEOUTS);
-foreign import stdcall unsafe "winbase.h GetCommTimeouts"
+foreign import ccall unsafe "winbase.h GetCommTimeouts"
   c_GetCommTimeouts :: HANDLE -> LPCOMMTIMEOUTS -> IO BOOL
 
 
@@ -182,8 +183,22 @@ setCommTimeouts h ct =
 
 -- setcommtimeouts
 -- winbase.h -> BOOL WINAPI SetCommTimeouts(HANDLE, LPCOMMTIMEOUTS);
-foreign import stdcall unsafe "winbase.h SetCommTimeouts"
+foreign import ccall unsafe "winbase.h SetCommTimeouts"
   c_SetCommTimeouts :: HANDLE -> LPCOMMTIMEOUTS -> IO BOOL
+
+
+--int _open_osfhandle (
+--  __in  HANDLE hFile,
+--  __in  int flags
+--);
+foreign import ccall unsafe "_open_osfhandle"
+  open_osfhandle :: HANDLE -> Int -> IO CInt
+
+--HANDLE _get_osfhandle (
+--  __in  int fd
+--);
+foreign import ccall unsafe "_get_osfhandle"
+  get_osfhandle :: CInt -> IO HANDLE
 
 
 clrDTR :: DWORD
@@ -200,7 +215,7 @@ setRTS = #const SETRTS
 
 --
 --
-foreign import stdcall unsafe "winbase.h EscapeCommFunction"
+foreign import ccall unsafe "winbase.h EscapeCommFunction"
   c_EscapeCommFunction :: HANDLE -> DWORD -> IO BOOL
 
 
