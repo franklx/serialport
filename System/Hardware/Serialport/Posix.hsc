@@ -144,6 +144,11 @@ getSerialSettings :: SerialPort -> SerialPortSettings
 getSerialSettings = portSettings
 
 
+-- |Retrieve Handle from SerialPort for using with System.IO
+getHandle :: SerialPort -> IO Handle
+getHandle = fdToHandle . fd
+
+
 withParity :: TerminalAttributes -> Parity -> TerminalAttributes
 withParity termOpts Even =
     termOpts `withMode` EnableParity
