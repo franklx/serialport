@@ -2,21 +2,21 @@
 {-# OPTIONS_HADDOCK hide #-}
 module System.Hardware.Serialport.Windows where
 
-import Data.Bits
-import qualified Data.ByteString.Char8 as B
-import qualified Data.ByteString.Unsafe as BU
-import qualified System.Win32.Comm as Comm
-import System.Win32.Types
-import System.Win32.File
-import Foreign.Marshal.Alloc
-import System.Hardware.Serialport.Types
-import Control.Monad
-import System.IO
+import           Control.Monad
+import           Data.Bits
+import qualified Data.ByteString.Char8            as B
+import qualified Data.ByteString.Unsafe           as BU
+import           Foreign.Marshal.Alloc
+import           System.Hardware.Serialport.Types
+import           System.IO
+import qualified System.Win32.Comm                as Comm
+import           System.Win32.File
+import           System.Win32.Types
 
 data SerialPort = SerialPort {
-                      handle :: HANDLE,
+                      handle       :: HANDLE,
                       portSettings :: SerialPortSettings,
-                      hnd :: Handle
+                      hnd          :: Handle
                   }
 
 
@@ -99,13 +99,13 @@ closeSerial = closeHandle . handle
 
 -- |Set the Data Terminal Ready level
 setDTR :: SerialPort -> Bool -> IO ()
-setDTR (SerialPort h _ _) True =  Comm.escapeCommFunction h Comm.setDTR
+setDTR (SerialPort h _ _) True  =  Comm.escapeCommFunction h Comm.setDTR
 setDTR (SerialPort h _ _) False =  Comm.escapeCommFunction h Comm.clrDTR
 
 
 -- |Set the Ready to send level
 setRTS :: SerialPort -> Bool -> IO ()
-setRTS (SerialPort h _ _) True = Comm.escapeCommFunction h Comm.setRTS
+setRTS (SerialPort h _ _) True  = Comm.escapeCommFunction h Comm.setRTS
 setRTS (SerialPort h _ _) False = Comm.escapeCommFunction h Comm.clrRTS
 
 

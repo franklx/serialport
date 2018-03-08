@@ -54,13 +54,13 @@ module System.Hardware.Serialport (
   ) where
 
 #if defined(mingw32_HOST_OS)
-import System.Hardware.Serialport.Windows
+import           System.Hardware.Serialport.Windows
 #else
-import System.Hardware.Serialport.Posix
+import           System.Hardware.Serialport.Posix
 #endif
-import System.Hardware.Serialport.Types
+import           System.Hardware.Serialport.Types
 
-import qualified Control.Exception as Ex
+import qualified Control.Exception                  as Ex
 
 -- |Safer device function, so you don't forget to close the device
 withSerial :: FilePath -> SerialPortSettings -> ( SerialPort -> IO a ) -> IO a

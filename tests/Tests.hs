@@ -1,10 +1,10 @@
-import System.Environment
-import System.Hardware.Serialport
-import System.IO
-import qualified Data.ByteString.Char8 as B
-import Test.HUnit
-import System.Exit
-import Control.Concurrent
+import           Control.Concurrent
+import qualified Data.ByteString.Char8      as B
+import           System.Environment
+import           System.Exit
+import           System.Hardware.Serialport
+import           System.IO
+import           Test.HUnit
 
 
 

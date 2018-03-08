@@ -1,7 +1,7 @@
 {-# OPTIONS_HADDOCK hide #-}
 module System.Hardware.Serialport.Types where
 
-import Data.Word
+import           Data.Word
 
 
 -- | Supported baudrates
@@ -25,12 +25,12 @@ data Parity = Even | Odd | NoParity deriving (Show, Eq)
 data FlowControl = Software | NoFlowControl deriving (Show, Eq)
 
 data SerialPortSettings = SerialPortSettings {
-                      commSpeed    :: CommSpeed,   -- ^ baudrate
-                      bitsPerWord  :: Word8,       -- ^ Number of bits in a word
-                      stopb        :: StopBits,    -- ^ Number of stop bits
-                      parity       :: Parity,      -- ^ Type of parity
-                      flowControl  :: FlowControl, -- ^ Type of flowcontrol
-                      timeout      :: Int          -- ^ Timeout when receiving a char in tenth of seconds
+                      commSpeed   :: CommSpeed,   -- ^ baudrate
+                      bitsPerWord :: Word8,       -- ^ Number of bits in a word
+                      stopb       :: StopBits,    -- ^ Number of stop bits
+                      parity      :: Parity,      -- ^ Type of parity
+                      flowControl :: FlowControl, -- ^ Type of flowcontrol
+                      timeout     :: Int          -- ^ Timeout when receiving a char in tenth of seconds
                   }
 
 
